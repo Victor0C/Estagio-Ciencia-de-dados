@@ -6,12 +6,12 @@ def obter_agenda_presidente(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    eventos = soup.find_all('div', class_='compromisso')
+    eventos = soup.find_all('div', class_='item-compromisso')
     
     dados = []
     for evento in eventos:
-        hora = evento.find('span', class_='horario').text.strip()
-        descricao = evento.find('span', class_='descricao').text.strip()
+        hora = evento.find('time', class_='compromisso-inicio').text.strip()
+        descricao = evento.find('h2', class_='compromisso-titulo').text.strip()
         dados.append({"Data": url.split('/')[-1], "Hora": hora, "Evento": descricao})
     
     return pd.DataFrame(dados)
