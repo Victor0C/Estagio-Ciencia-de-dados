@@ -4,12 +4,11 @@ import pandas as pd
 import re
 import html
 import unicodedata
-import json
 
 def obter_agenda_ministro(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    
+
     eventos = soup.find('div', attrs={'ng-init': re.compile(r'^events')})
 
     padrao = r'\[(.*?)\]'
